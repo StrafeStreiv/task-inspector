@@ -1,0 +1,57 @@
+## .NET
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Visual Studio
+.vs/
+.vscode/
+*.swp
+*.swo
+*.*~
+
+## Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+[Bb]in/
+[Oo]bj/
+
+## SQLite files
+*.db
+*.db-journal
+
+## User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Build results
+[Dd]ebug/
+[Rr]elease/
+[Dd]ebugPublic/
+[Rr]eleasePublic/
+x64/
+x86/
+build/
+[Bb]in/
+[Oo]bj/
+
+## NuGet Packages
+packages/
+*.nupkg
+
+## Test Results
+TestResults/
+
+## VS Code
+.vscode/
+
+## Temp files
+*.tmp
+*.temp
