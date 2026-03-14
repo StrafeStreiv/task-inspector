@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using TaskInspector.Models;
 
-namespace TaskInspector.DTO
+namespace TaskInspector.DTOs
 {
 
     public class CreateTaskDto

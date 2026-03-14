@@ -17,7 +17,7 @@
                 <a class="nav-link active" data-bs-toggle="tab" href="#list">Список задач</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#create">Создать задачу</a>
+                <a class="nav-link" id="create-tab" data-bs-toggle="tab" href="#create">Создать задачу</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="tab" href="#analytics">Аналитика</a>
@@ -67,8 +67,9 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="deadline" class="form-label">Срок выполнения</label>
-                        <input type="datetime-local" class="form-control" id="deadline">
+                        <label for="deadline" class="form-label">Срок выполнения (дата)</label>
+                        <input type="date" class="form-control" id="deadline">
+                        <div class="form-text">Выберите дату (время будет установлено на 00:00 вашего часового пояса)</div>
                     </div>
                     <div class="mb-3">
                         <label for="assignee" class="form-label">Исполнитель</label>

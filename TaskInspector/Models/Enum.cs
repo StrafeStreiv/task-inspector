@@ -1,18 +1,19 @@
-﻿namespace TaskInspector.Models
+﻿using System.Text.Json.Serialization;
+
+namespace TaskInspector.Models;
+
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum Priority
 {
-
-    public enum Priority
-    {
-        Low,
-        Medium,
-        High,
-        Critical
-    }
-
-    public enum Status
-    {
-        Open,
-        InProgress,
-        Completed
-    }
+    Low,
+    Medium,
+    High,
+    Critical
+}
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum Status
+{
+    Open,
+    InProgress,
+    Completed
 }

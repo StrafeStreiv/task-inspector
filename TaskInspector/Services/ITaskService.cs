@@ -1,5 +1,4 @@
-﻿using TaskInspector.DTO;
-using TaskInspector.DTOs;
+﻿using TaskInspector.DTOs;
 using TaskInspector.Models;
 
 namespace TaskInspector.Services

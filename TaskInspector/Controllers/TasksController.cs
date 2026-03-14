@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TaskInspector.DTO;
 using TaskInspector.DTOs;
 using TaskInspector.Models;
 using TaskInspector.Services;

@@ -4,7 +4,7 @@ using TaskInspector.Data;
 using TaskInspector.DTOs;
 using TaskInspector.Models;
 using System.Text.Json;
-using TaskInspector.DTO;
+
 
 namespace TaskInspector.Services
 {
@@ -143,22 +143,9 @@ namespace TaskInspector.Services
             var overdueCount = await _context.Tasks
                 .CountAsync(t => t.Status != Status.Completed && t.Deadline < now);
 
-            // Среднее время выполнения для завершённых задач (в часах)
+            // Пока оставим эти поля пустыми
             double? avgHours = null;
-            if (completedCount > 0)
-            {
-                avgHours = await _context.Tasks
-                    .Where(t => t.Status == Status.Completed && t.CompletedAt.HasValue)
-                    .AverageAsync(t => EF.Functions.DateDiffHour(t.CreatedAt, t.CompletedAt.Value));
-            }
-
-            // Исполнитель с наибольшим количеством просроченных задач
-            var topOverdueAssignee = await _context.Tasks
-                .Where(t => t.Status != Status.Completed && t.Deadline < now)
-                .GroupBy(t => t.Assignee)
-                .Select(g => new { Assignee = g.Key, Count = g.Count() })
-                .OrderByDescending(x => x.Count)
-                .FirstOrDefaultAsync();
+            string? topAssignee = null;
 
             return new AnalyticsDto
             {
@@ -168,7 +155,7 @@ namespace TaskInspector.Services
                 CompletedCount = completedCount,
                 OverdueCount = overdueCount,
                 AverageCompletionTimeHours = avgHours,
-                TopOverdueAssignee = topOverdueAssignee?.Assignee
+                TopOverdueAssignee = topAssignee
             };
         }
 
