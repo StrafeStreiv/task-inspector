@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Инспектор задач</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container mt-3">
+        <h1 class="text-center">Инспектор задач</h1>
+
+        <!-- Навигация -->
+        <ul class="nav nav-tabs mt-3" id="mainTabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-bs-toggle="tab" href="#list">Список задач</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#create">Создать задачу</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#analytics">Аналитика</a>
+            </li>
+        </ul>
+
+        <div class="tab-content mt-3">
+            <!-- Вкладка Список задач -->
+            <div class="tab-pane fade show active" id="list">
+                <div class="row mb-3">
+                    <div class="col">
+                        <select id="statusFilter" class="form-select">
+                            <option value="">Все статусы</option>
+                            <option value="Open">Открытые</option>
+                            <option value="InProgress">В работе</option>
+                            <option value="Completed">Выполненные</option>
+                            <option value="Overdue">Просроченные</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <select id="assigneeFilter" class="form-select">
+                            <option value="">Все исполнители</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="tasksList" class="list-group"></div>
+            </div>
+
+            <!-- Вкладка Создание задачи -->
+            <div class="tab-pane fade" id="create">
+                <form id="createForm">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Название (5-200 симв.)</label>
+                        <input type="text" class="form-control" id="title" required minlength="5" maxlength="200">
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Описание</label>
+                        <textarea class="form-control" id="description" rows="2"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="priority" class="form-label">Приоритет</label>
+                        <select class="form-select" id="priority">
+                            <option value="Low">Низкий</option>
+                            <option value="Medium">Средний</option>
+                            <option value="High">Высокий</option>
+                            <option value="Critical">Критический</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="deadline" class="form-label">Срок выполнения</label>
+                        <input type="datetime-local" class="form-control" id="deadline">
+                    </div>
+                    <div class="mb-3">
+                        <label for="assignee" class="form-label">Исполнитель</label>
+                        <select class="form-select" id="assignee" required></select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Создать</button>
+                </form>
+            </div>
+
+            <!-- Вкладка Аналитика -->
+            <div class="tab-pane fade" id="analytics">
+                <div id="analyticsContent"></div>
+            </div>
+        </div>
+
+        <!-- Модальное окно карточки задачи -->
+        <div class="modal fade" id="taskModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Карточка задачи</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body" id="taskModalBody">
+                        <!-- заполняется динамически -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/script.js"></script>
+</body>
+</html>

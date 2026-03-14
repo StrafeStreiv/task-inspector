@@ -188,6 +188,6 @@ namespace TaskInspector.Services
                 Comment = task.Comment,
                 IsOverdue = task.Status != Status.Completed && task.Deadline < DateTime.UtcNow
             };
-        }S
+        }
     }
 }

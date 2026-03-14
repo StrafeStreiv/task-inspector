@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using TaskInspector.Data;
+using TaskInspector.Middleware;
+using TaskInspector.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,11 +10,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// DbContext с SQLite
+// DbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// CORS
+// Services
+builder.Services.AddScoped<ITaskService, TaskService>();
+
+// CORS (для разработки)
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -25,6 +30,13 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+// Применить миграции при запуске
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    dbContext.Database.Migrate();
+}
+
 // Configure pipeline
 if (app.Environment.IsDevelopment())
 {
@@ -33,19 +45,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("AllowAll");
+app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseHttpsRedirection();
+app.UseStaticFiles(); // для wwwroot
 app.MapControllers();
-
-
-var wwwrootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
-if (!Directory.Exists(wwwrootPath))
-{
-    Directory.CreateDirectory(wwwrootPath);
-    await File.WriteAllTextAsync(Path.Combine(wwwrootPath, "index.html"),
-        "<h1>Task Inspector API</h1><p>API is running. Use /swagger to see documentation.</p>");
-}
-
-app.UseStaticFiles();
-app.MapFallbackToFile("index.html");
+app.MapFallbackToFile("index.html"); // SPA поддержка
 
 app.Run();

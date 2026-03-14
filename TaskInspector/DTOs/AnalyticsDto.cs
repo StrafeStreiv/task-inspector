@@ -1,6 +1,5 @@
 ﻿namespace TaskInspector.DTOs
 {
-
     public class AnalyticsDto
     {
         public int TotalTasks { get; set; }
